@@ -1,29 +1,37 @@
 package com.prestashop.utils;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.prestashop.webdrivers.DriverManager;
 
+import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class DriverActions {
     private static final Logger LOGGER = LoggerFactory.getLogger(DriverActions.class);
     private static final String EMPTY_STRING = "";
     private static final String SCROLL_TO_JS_SCRIPT = "arguments[0].scrollIntoView();";
     private static final String BUTTON_WITH_NAME = "//button[contains(., '%s')]";
-
+    private static final int DEFAULT_TIMEOUT = 5;
 
     /**
      * Private constructor for DriverActions utility class.
@@ -96,8 +104,20 @@ public class DriverActions {
      */
     public static void click(final By locator) {
         LOGGER.info("Click element with {} locator.", locator.toString());
+        waitToBeVisible(locator);
         WebElement element = getDriverWait().until(elementToBeClickable(locator));
         element.click();
+    }
+
+    /**
+     * Waits and clicks on a webElement.
+     *
+     * @param element WebElement to wait and click.
+     */
+    public static void click(final WebElement element) {
+        LOGGER.info("Click element {}", element);
+        waitToBeVisible(element);
+        getDriverWait().until(visibilityOf(element)).click();
     }
 
     /**
@@ -154,6 +174,7 @@ public class DriverActions {
     public static void switchToThePreviousPageInBrowser() {
         WebDriver driver = DriverManager.getInstance().getWebDriver();
         driver.navigate().back();
+        driver.navigate().refresh();
     }
 
     /**
@@ -226,5 +247,35 @@ public class DriverActions {
         WebElement element = getDriverWait().until(ExpectedConditions.visibilityOfElementLocated(locator));
         Select select = new Select(element);
         select.selectByVisibleText(value);
+    }
+
+    /**
+     * Waits for an element to be visible - isDisplayed().
+     *
+     * @param locator the locator of an element to be found.
+     * @throws TimeoutException if failed to wait for the visibility of the element.
+     */
+    public static void waitToBeVisible(final By locator) {
+        defaultFluentWait().until(visibilityOfElementLocated(locator));
+    }
+
+    /**
+     * Waits for an element to be visible - isDisplayed().
+     *
+     * @param element the locator of an element to be found.
+     * @throws TimeoutException if failed to wait for the visibility of the element.
+     */
+    public static void waitToBeVisible(final WebElement element) {
+        defaultFluentWait().until(visibilityOf(element));
+    }
+
+    private static FluentWait<WebDriver> defaultFluentWait() {
+        return new FluentWait<WebDriver>(DriverManager.getInstance().getWebDriver())
+                .withTimeout(Duration.ofSeconds(DEFAULT_TIMEOUT))
+                .pollingEvery(Duration.ofMillis(500))
+                .ignoreAll(Arrays.asList(ElementNotInteractableException.class,
+                        NoSuchElementException.class,
+                        StaleElementReferenceException.class,
+                        WebDriverException.class));
     }
 }

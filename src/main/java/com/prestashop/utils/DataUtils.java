@@ -50,10 +50,6 @@ public final class DataUtils {
         return FAKER.address().city();
     }
 
-    public static String getRandomState(){
-        return FAKER.address().state();
-    }
-
     public static String getRandomZip(){
         return FAKER.number().digits(5);
     }

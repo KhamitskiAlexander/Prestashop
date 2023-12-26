@@ -23,12 +23,13 @@ public class PrestashopMainPage extends BasePage {
 
     public void clickRandomItem() {
         DriverActions.jsScrollTo(popularProducts);
+        DriverActions.waitToBeVisible(popularProducts);
         List<WebElement> listOfPopularProducts = DriverActions.getListOfWebElements(popularProducts);
         if (!listOfPopularProducts.isEmpty()) {
             Random random = new Random();
             int randomIndex = random.nextInt(listOfPopularProducts.size());
             WebElement randomProduct = listOfPopularProducts.get(randomIndex);
-            randomProduct.click();
+            DriverActions.click(randomProduct);
             LOGGER.info("Clicked on a random product.");
         } else {
             LOGGER.error("The list of popular products is empty.");

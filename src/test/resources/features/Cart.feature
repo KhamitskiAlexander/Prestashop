@@ -32,7 +32,8 @@ Feature: Prestashop. Cart feature
     And user fills in personal info on Order Page
     And user clicks "Continue" button
     And user fills in addresses info on Order Page
-    And user clicks Continue for submit delivery options on Order Page
+    And user clicks 'Continue' button after Addresses section filling on Order Page
+    And user clicks 'Continue' for submit delivery options on Order Page
     And user fills in payment info on Order Page
     And user clicks "Place order" button
     Then user sees "Your order is confirmed" as order confirmation message on Order Page

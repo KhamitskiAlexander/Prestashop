@@ -9,6 +9,7 @@ public class ItemPopUpPage extends BasePage {
     private final By proceedToCheckoutButton = By.xpath("//div[@class='cart-content-btn']//a[@class='btn btn-primary']");
 
     public String getMessageAfterAdding() {
+        DriverActions.waitToBeVisible(messageAfterAdding);
         String textOfMessage = DriverActions.getText(messageAfterAdding);
         DriverActions.click(closeNotificationMsg);
         return textOfMessage;
