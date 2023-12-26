@@ -1,4 +1,4 @@
-package com.prestashop;
+package com.prestashop.hooks;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Scenario;
