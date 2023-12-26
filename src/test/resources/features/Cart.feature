@@ -7,7 +7,7 @@ Feature: Prestashop. Cart feature
   Scenario: Add to cart button is displayed
     When user clicks random item on PrestaShop main Page
     Then checks that "Buy" button is "not displayed" on Item Page
-    Then checks that "Add to cart" button is "not displayed" on Item Page
+    Then checks that "Add to cart" button is "displayed" on Item Page
 
   Scenario: User can add multiple items to cart
     Then user sees "(0)" items in cart on PrestaShop main Page

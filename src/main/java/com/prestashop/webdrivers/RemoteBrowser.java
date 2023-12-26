@@ -1,13 +1,12 @@
 package com.prestashop.webdrivers;
 
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 
 public class RemoteBrowser implements Browser {
     /**
@@ -35,10 +34,12 @@ public class RemoteBrowser implements Browser {
      * @return the chrome options
      */
     private ChromeOptions getChromeOptions() {
-        Map<String, Object> chromePrefs = new HashMap<String, Object>();
         ChromeOptions options = new ChromeOptions();
-        options.setExperimentalOption("prefs", chromePrefs);
-        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+        options.setHeadless(false);
+        options.addArguments("--start-maximized");
+        options.addArguments("--disable-infobars");
+        options.addArguments("--no-sandbox");
+        options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
         return options;
     }
 }
