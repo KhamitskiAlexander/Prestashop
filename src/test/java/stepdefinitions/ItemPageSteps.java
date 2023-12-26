@@ -5,20 +5,20 @@ import io.cucumber.java.en.Then;
 import org.assertj.core.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pages.ItemPage;
+import pages.CommonPage;
 import utils.DriverActions;
 
 public class ItemPageSteps {
     private static final Logger LOGGER = LoggerFactory.getLogger(ItemPageSteps.class);
-    private final ItemPage itemPage;
+    private final CommonPage commonPage;
 
-    public ItemPageSteps(final ItemPage itemPage) {
-        this.itemPage = itemPage;
+    public ItemPageSteps(CommonPage commonPage) {
+        this.commonPage = commonPage;
     }
 
     @Then("checks that {string} button is {string} on Item Page")
     public void checksThatButtonIsOnItemPage(String buttonName, String displayedFilter) {
-        itemPage.switchToIFrame();
+        commonPage.switchToIframe();
         boolean isButtonDisplayed = DriverActions.isButtonDisplayedWithName(buttonName);
         switch (displayedFilter) {
             case "displayed":
@@ -26,14 +26,14 @@ public class ItemPageSteps {
                         .assertThat(isButtonDisplayed)
                         .as(String.format("The button with name '%s' isn't displayed!", buttonName))
                         .isTrue();
-                itemPage.switchToDefaultContent();
+                commonPage.switchToDefaultContent();
                 break;
             case "not displayed":
                 Assertions
                         .assertThat(isButtonDisplayed)
                         .as(String.format("The button with name '%s' should not be displayed!", buttonName))
                         .isFalse();
-                itemPage.switchToDefaultContent();
+                commonPage.switchToDefaultContent();
                 break;
             default:
                 LOGGER.error("Invalid 'displayedFilter' value: {}", displayedFilter);
@@ -43,8 +43,8 @@ public class ItemPageSteps {
 
     @And("user clicks {string} button on Item Page")
     public void userClicksButtonOnItemPage(String buttonName) {
-        itemPage.switchToIFrame();
+        commonPage.switchToIframe();
         DriverActions.clickOnButtonWithName(buttonName);
-        itemPage.switchToDefaultContent();
+        commonPage.switchToDefaultContent();
     }
 }

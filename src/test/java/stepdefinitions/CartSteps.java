@@ -21,26 +21,26 @@ public class CartSteps {
 
     @And("user sees added products on Cart Page")
     public void userSeesAddedProductsOnCartPage() {
-        cartPage.switchToIFrame();
+        commonPage.switchToIframe();
         List<String> actualItemsInCart = cartPage.getAllItemNamesInCart();
         Assertions
                 .assertThat(EXPECTED_ITEMS_IN_CART)
                 .as("All added products should be displayed in the cart")
                 .containsAll(actualItemsInCart);
-        DriverActions.switchToDefaultContent();
+        commonPage.switchToDefaultContent();
     }
 
     @And("user clicks 'PROCEED TO CHECKOUT' button on Cart Page")
     public void userClicksProceedToCheckoutButtonOnCartPage() {
-        cartPage.switchToIFrame();
+        commonPage.switchToIframe();
         cartPage.clickProceedToCheckoutButton();
-        DriverActions.switchToDefaultContent();
+        commonPage.switchToDefaultContent();
     }
 
-    @And("clicks {string} button")
+    @And("user clicks {string} button")
     public void clickButtonOnPage(String buttonName) {
-        commonPage.goIntoIFrame();
+        commonPage.switchToIframe();
         DriverActions.clickOnButtonWithName(buttonName);
-        DriverActions.switchToDefaultContent();
+        commonPage.switchToDefaultContent();
     }
 }
