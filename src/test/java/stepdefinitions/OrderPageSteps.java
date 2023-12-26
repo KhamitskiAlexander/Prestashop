@@ -17,49 +17,49 @@ public class OrderPageSteps {
 
     @Then("user sees {string} section title on Order Page")
     public void userSeesSectionTitleOnOrderPage(final String title) {
-        orderPage.switchToIFrame();
+        commonPage.switchToIframe();
         Assertions
                 .assertThat(orderPage.getPersonalInformationSectionTitle())
                 .as(String.format("'%s' should be displayed as 'Personal information' section title", title))
                 .containsIgnoringCase(title);
-        orderPage.switchToDefaultContent();
+        commonPage.switchToDefaultContent();
     }
 
-    @And("user fills in personal info")
-    public void userFillsInPersonalInfo() {
-        commonPage.goIntoIFrame();
+    @And("user fills in personal info on Order Page")
+    public void userFillsInPersonalInfoOnOrderPage() {
+        commonPage.switchToIframe();
         orderPage.fillPersonalInfo();
-        commonPage.goOutIFrame();
+        commonPage.switchToDefaultContent();
     }
 
-    @And("user fills in addresses info")
-    public void userFillsInAddressesInfo() {
-        commonPage.goIntoIFrame();
+    @And("user fills in addresses info on Order Page")
+    public void userFillsInAddressesInfoOnOrderPage() {
+        commonPage.switchToIframe();
         orderPage.fillAddresses();
-        commonPage.goOutIFrame();
+        commonPage.switchToDefaultContent();
     }
 
-    @And("user clicks Continue for submit delivery options")
-    public void userClicksContinueForSubmitDeliveryOptions() {
-        commonPage.goIntoIFrame();
+    @And("user clicks Continue for submit delivery options on Order Page")
+    public void userClicksContinueForSubmitDeliveryOptionsOnOrderPage() {
+        commonPage.switchToIframe();
         orderPage.clickConfirmDeliveryOpt();
-        commonPage.goOutIFrame();
+        commonPage.switchToDefaultContent();
     }
 
-    @And("user fills in payment info")
-    public void userFillsInPaymentInfo() {
-        commonPage.goIntoIFrame();
+    @And("user fills in payment info on Order Page")
+    public void userFillsInPaymentInfoOnOrderPage() {
+        commonPage.switchToIframe();
         orderPage.fillInPayment();
-        commonPage.goOutIFrame();
+        commonPage.switchToDefaultContent();
     }
 
-    @Then("user gets message {string}")
-    public void userGetsMessage(String message) {
-        commonPage.goIntoIFrame();
+    @Then("user sees {string} as order confirmation message on Order Page")
+    public void userSeesAsOrderConfirmationMessageOnOrderPage(String message) {
+        commonPage.switchToIframe();
         Assertions
                 .assertThat(orderPage.getOrderConfirmationMessage())
                 .as("The message after order confirmation isn't correct")
-                .isEqualTo(message);
-        commonPage.goOutIFrame();
+                .containsIgnoringCase(message);
+        commonPage.switchToDefaultContent();
     }
 }

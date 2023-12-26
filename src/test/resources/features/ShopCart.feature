@@ -29,10 +29,10 @@ Feature: Prestashop. Cart feature
     And user clicks 'PROCEED TO CHECKOUT' button on Item pop up Page
     And user clicks 'PROCEED TO CHECKOUT' button on Cart Page
     Then user sees "Personal information" section title on Order Page
-    And user fills in personal info
-    And clicks "Continue" button
-    And user fills in addresses info
-    And user clicks Continue for submit delivery options
-    And user fills in payment info
-    And clicks "Place order" button
-    Then user gets message "YOUR ORDER IS CONFIRMED"
+    And user fills in personal info on Order Page
+    And user clicks "Continue" button
+    And user fills in addresses info on Order Page
+    And user clicks Continue for submit delivery options on Order Page
+    And user fills in payment info on Order Page
+    And user clicks "Place order" button
+    Then user sees "Your order is confirmed" as order confirmation message on Order Page

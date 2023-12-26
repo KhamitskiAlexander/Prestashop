@@ -5,7 +5,6 @@ import org.openqa.selenium.support.PageFactory;
 import webdrivers.DriverManager;
 
 public abstract class BasePage {
-
     public WebDriver getBrowserDriver() {
         return DriverManager.getInstance().getWebDriver();
     }

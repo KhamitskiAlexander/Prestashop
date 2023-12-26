@@ -12,7 +12,6 @@ import webdrivers.DriverManager;
 import java.io.ByteArrayInputStream;
 
 public class PrestashopHooks {
-
     private static final Logger LOGGER = LoggerFactory.getLogger(PrestashopHooks.class);
     private static final String IMAGE_NAME = "Page screenshot";
     private static final String IMAGE_TYPE = "image/png";
@@ -33,7 +32,7 @@ public class PrestashopHooks {
     }
 
     @After(order = 0)
-    public void quitWebDriverAfterTest(final Scenario scenario) {
+    public void quitWebDriverAfterTest() {
         if (DriverManager.isInitialized()) {
             DriverManager.getInstance().quitDriver();
         }

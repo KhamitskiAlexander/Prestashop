@@ -12,19 +12,18 @@ import java.util.Random;
 
 public class PrestashopMainPage extends BasePage {
     private static final Logger LOGGER = LoggerFactory.getLogger(PrestashopMainPage.class);
-    private final By CART_ICON = By.id("_desktop_cart");
-    private final By NUMBER_IN_CART_ICON = By.xpath("//span[@class='cart-products-count']");
-    private final By POPULAR_PRODUCTS = By.xpath("//picture");
-    private final By FRAMELIVE = By.id("framelive");
-    private final By ADDING_PRODUCT = By.cssSelector("h1");
+    private final By cartIcon = By.id("_desktop_cart");
+    private final By numberInCartIcon = By.xpath("//span[@class='cart-products-count']");
+    private final By popularProducts = By.xpath("//picture");
+    private final By addingProduct = By.cssSelector("h1");
 
     public void openMainPage() {
         getBrowserDriver().get(BaseUrl.PRESTASHOP);
     }
 
     public void clickRandomItem() {
-        DriverActions.jsScrollTo(POPULAR_PRODUCTS);
-        List<WebElement> listOfPopularProducts = DriverActions.getListOfWebElements(POPULAR_PRODUCTS);
+        DriverActions.jsScrollTo(popularProducts);
+        List<WebElement> listOfPopularProducts = DriverActions.getListOfWebElements(popularProducts);
         if (!listOfPopularProducts.isEmpty()) {
             Random random = new Random();
             int randomIndex = random.nextInt(listOfPopularProducts.size());
@@ -36,23 +35,15 @@ public class PrestashopMainPage extends BasePage {
         }
     }
 
-    public void switchToIFrame() {
-        DriverActions.switchToIframe(FRAMELIVE);
-    }
-
-    public void switchToDefaultContent() {
-        DriverActions.switchToDefaultContent();
-    }
-
     public String getAddedItemName() {
-        return DriverActions.getText(ADDING_PRODUCT);
+        return DriverActions.getText(addingProduct);
     }
 
     public String getNumberOfItemsInCart() {
-        return DriverActions.getText(NUMBER_IN_CART_ICON);
+        return DriverActions.getText(numberInCartIcon);
     }
 
     public void clickCartIcon() {
-        DriverActions.click(CART_ICON);
+        DriverActions.click(cartIcon);
     }
 }

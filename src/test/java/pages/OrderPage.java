@@ -5,8 +5,7 @@ import utils.DataUtils;
 import utils.DriverActions;
 
 public class OrderPage extends BasePage {
-    private final By FRAMELIVE = By.id("framelive");
-    private final By PERSONAL_INFORMATION_SECTION_TITLE =
+    private final By personalInformationSectionTitle =
             By.xpath("//section[contains(@id, 'personal')]/h1[contains(@class, 'title')]");
     private final By firstName = By.id("field-firstname");
     private final By lastName = By.id("field-lastname");
@@ -26,16 +25,8 @@ public class OrderPage extends BasePage {
     private final By payByBankOpt = By.xpath("//label[contains(.,'Pay by bank')]");
     private final By orderConfirmation = By.xpath("//h3[contains(.,'order')]");
 
-    public void switchToIFrame() {
-        DriverActions.switchToIframe(FRAMELIVE);
-    }
-
-    public void switchToDefaultContent() {
-        DriverActions.switchToDefaultContent();
-    }
-
     public String getPersonalInformationSectionTitle() {
-        return DriverActions.getText(PERSONAL_INFORMATION_SECTION_TITLE).trim();
+        return DriverActions.getText(personalInformationSectionTitle).trim();
     }
 
     public void fillPersonalInfo() {
