@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import webdrivers.DriverManager;
 import java.io.ByteArrayInputStream;
 
-public class PrestashopHooks{
+public class PrestashopHooks {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PrestashopHooks.class);
     private static final String IMAGE_NAME = "Page screenshot";

@@ -2,6 +2,7 @@ package webdrivers;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.PropertiesManager;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -35,7 +36,17 @@ public final class DriverManager {
      * Initializes the Web Driver instance.
      */
     public void initializeDriver() {
-        webDriver = DriverFactory.getDriver(DriverType.CHROME);
+        PropertiesManager propertiesManager = new PropertiesManager();
+        String browser = System.getProperty("BROWSER", propertiesManager.get("BROWSER"));
+        if (browser.equalsIgnoreCase("chrome")) {
+            webDriver = DriverFactory.getDriver(DriverType.CHROME);
+        } else if (browser.equalsIgnoreCase("firefox")) {
+            webDriver = DriverFactory.getDriver(DriverType.FIREFOX);
+        } else if (browser.equalsIgnoreCase("remote")) {
+            webDriver = DriverFactory.getDriver(DriverType.REMOTE);
+        } else {
+            throw new IllegalArgumentException("Unsupported browser: " + browser);
+        }
         webDriver.manage().window().maximize();
         setDefaultTimeWaits();
     }

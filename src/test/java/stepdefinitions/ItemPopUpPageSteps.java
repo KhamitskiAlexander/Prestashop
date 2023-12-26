@@ -1,4 +1,4 @@
-package stepdef;
+package stepdefinitions;
 
 import io.cucumber.java.en.And;
 import org.assertj.core.api.Assertions;

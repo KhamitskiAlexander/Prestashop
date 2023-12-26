@@ -1,0 +1,57 @@
+version: '2'
+services:
+  chrome-node1:
+    image: selenium/node-chrome:latest
+    shm_size: 2gb
+    restart: always
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_SCREEN_WIDTH=1920
+      - SE_SCREEN_HEIGHT=1080
+      - SE_SESSION_REQUEST_TIMEOUT=180
+      - VNC_NO_PASSWORD=1
+      - SE_NODE_SESSION_TIMEOUT=1000
+      - SE_NODE_MAX_INSTANCES=1
+      - SE_NODE_MAX_SESSIONS=15
+      - SE_NODE_OVERRIDE_MAX_SESSIONS=true
+      - SE_NODE_GRID_URL=http://selenium-hub:4444/wd/hub
+      - SE_NODE_CHROME_ARGUMENTS="--disable-dev-shm-usage"
+      - SE_NODE_CHROME_ARGUMENTS="--headless=false"
+      - TZ=EST
+    ports:
+      - "9001:5900"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+    networks:
+      - auto-net
+
+  selenium-hub:
+    image: selenium/hub:latest
+    container_name: selenium-hub
+    restart: always
+    ports:
+      - "4442:4442"
+      - "4443:4443"
+      - "4444:4444"
+    environment:
+      - GRID_BROWSER_TIMEOUT=600
+      - GRID_TIMEOUT=600
+      - GRID_NEW_SESSION_WAIT_TIMEOUT=600
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+    networks:
+      - auto-net
+
+networks:
+  auto-net:
+    driver: bridge
