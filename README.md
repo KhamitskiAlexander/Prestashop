@@ -17,7 +17,10 @@
 
 ## How to run tests
 
-1. From command line from project's root:
-    ``./gradlew clean tests``
-2. Generate Allure Report:
+1. Open desktop Docker app
+2. From command line from project's root:
+    ``docker-compose up -d``
+3. From command line from project's root:
+    ``./gradlew clean executeUITests -DBROWSER='remote'``
+4. Generate Allure Report:
     ``./gradlew allureReport``

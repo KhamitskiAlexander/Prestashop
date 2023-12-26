@@ -1,4 +1,4 @@
-package stepdef.sharesteps;
+package stepdefinitions.sharedSteps;
 
 import io.cucumber.java.en.When;
 import utils.DriverActions;

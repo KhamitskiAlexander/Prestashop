@@ -1,4 +1,4 @@
-package stepdef;
+package stepdefinitions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,14 +6,17 @@ import java.util.List;
 import io.cucumber.java.en.And;
 import org.assertj.core.api.Assertions;
 import pages.CartPage;
+import pages.CommonPage;
 import utils.DriverActions;
 
 public class CartSteps {
     private final CartPage cartPage;
+    private final CommonPage commonPage;
     public static List<String> EXPECTED_ITEMS_IN_CART = new ArrayList<>();
 
-    public CartSteps(CartPage cartPage) {
+    public CartSteps(CartPage cartPage, CommonPage commonPage) {
         this.cartPage = cartPage;
+        this.commonPage = commonPage;
     }
 
     @And("user sees added products on Cart Page")
@@ -31,6 +34,13 @@ public class CartSteps {
     public void userClicksProceedToCheckoutButtonOnCartPage() {
         cartPage.switchToIFrame();
         cartPage.clickProceedToCheckoutButton();
+        DriverActions.switchToDefaultContent();
+    }
+
+    @And("clicks {string} button")
+    public void clickButtonOnPage(String buttonName) {
+        commonPage.goIntoIFrame();
+        DriverActions.clickOnButtonWithName(buttonName);
         DriverActions.switchToDefaultContent();
     }
 }

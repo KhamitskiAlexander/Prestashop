@@ -16,6 +16,7 @@ dependencies {
     implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '5.5.3'
     implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
     implementation group: 'org.assertj', name: 'assertj-core', version: '3.21.0'
+    implementation group: 'com.github.javafaker', name: 'javafaker', version: '1.0.2'
     testImplementation group: 'io.cucumber', name: 'cucumber-java', version: '6.10.4'
     testImplementation group: 'io.cucumber', name: 'cucumber-picocontainer', version: '6.10.4'
     testImplementation group: 'io.cucumber', name: 'cucumber-testng', version: '6.10.4'
@@ -36,11 +37,13 @@ tasks.withType(JavaCompile).configureEach {
 task executeUITests(type: Test) {
     useTestNG()
     options {
-        jvmArgs = ["-Dcucumber.features=${rootProject.rootDir}/src/test/resources/features/"]
-        jvmArgs = ['-Dcucumber.plugin=rerun:build/firstRerun.txt,' +
-                           'io.qameta.allure.cucumber6jvm.AllureCucumber6Jvm']
-        jvmArgs = ['-Dcucumber.filter.tags=' + '@ui']
+        systemProperty 'cucumber.features', "${rootProject.rootDir}/src/test/resources/features/"
+        systemProperty 'cucumber.plugin', 'rerun:build/firstRerun.txt,io.qameta.allure.cucumber6jvm.AllureCucumber6Jvm'
+        systemProperty 'cucumber.filter.tags', '@ui'
+        doFirst {
+            systemProperties(System.getProperties())
+        }
+        testLogging.showStandardStreams = true
+        scanForTestClasses = false
     }
-    testLogging.showStandardStreams = true
-    scanForTestClasses = false
 }

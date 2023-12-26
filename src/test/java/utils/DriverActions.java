@@ -7,6 +7,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -197,5 +198,33 @@ public class DriverActions {
      */
     public static List<WebElement> waitUntilElementListHasSize(By locator, int expectedSize) {
         return getDriverWait().until(ExpectedConditions.numberOfElementsToBe(locator, expectedSize));
+    }
+
+    /**
+     * Sets Input Field.
+     *
+     * @param locator WebElement to wait and fill.
+     * @param text    Text to fill.
+     */
+    public static void setText(final By locator, final String text) {
+        WebElement element = getDriverWait().until(ExpectedConditions.visibilityOfElementLocated(locator));
+        clearText(locator);
+        element.sendKeys(text);
+    }
+
+    /**
+     * Clears the WebElement text content.
+     *
+     * @param locator WebElement locator.
+     */
+    public static void clearText(final By locator) {
+        WebElement element = getDriverWait().until(ExpectedConditions.visibilityOfElementLocated(locator));
+        element.clear();
+    }
+
+    public static void setSelectByText(final By locator, final String value) {
+        WebElement element = getDriverWait().until(ExpectedConditions.visibilityOfElementLocated(locator));
+        Select select = new Select(element);
+        select.selectByVisibleText(value);
     }
 }
