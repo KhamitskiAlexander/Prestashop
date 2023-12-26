@@ -39,7 +39,14 @@ public class OrderPageSteps {
         commonPage.switchToDefaultContent();
     }
 
-    @And("user clicks Continue for submit delivery options on Order Page")
+    @And("user clicks 'Continue' button after Addresses section filling on Order Page")
+    public void userClicksContinueButtonAfterAddressesSectionFillingOnOrderPage() {
+        commonPage.switchToIframe();
+        orderPage.clickContinueButtonAfterAddressFilling();
+        commonPage.switchToDefaultContent();
+    }
+
+    @And("user clicks 'Continue' for submit delivery options on Order Page")
     public void userClicksContinueForSubmitDeliveryOptionsOnOrderPage() {
         commonPage.switchToIframe();
         orderPage.clickConfirmDeliveryOpt();
