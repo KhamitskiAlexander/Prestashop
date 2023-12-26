@@ -19,8 +19,16 @@
 1. Open desktop Docker app
 2. From command line from project's root:
     ``docker-compose up -d``
+![Docker Desktop](images/DockerDesktop.png)
+
+
 3. From command line from project's root:
     ``./gradlew clean executeUITests -DBROWSER='remote'``
    You can open Selenoid Grid on the next local host: http://localhost:4444/ui#/sessions
+![Selenium Grid](images/SeleniumGrid.png)
+
+
 4. Generate Allure Report:
     ``./gradlew allureReport``
+   You can open Allure Report here: ``build/reports/allure-report/allureReport/index.html``
+![Allure Report](images/AllureReport.png)
